@@ -11,7 +11,7 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 //The main game panel for the game
-public class GamePanel extends JPanel
+public class GamePanel extends JPanel implements Runnable
 {
     //heights and widths of the panel 
     public static final int WIDTH = 1280;
@@ -20,13 +20,57 @@ public class GamePanel extends JPanel
     //This is the final variable used to set the FPS
     final int FPS = 60;
     
+    //To allow multitaksing along the game
+    Thread gameThread;
     
     public GamePanel()
     {
         this.setPreferredSize(new Dimension(WIDTH,HEIGHT));
         this.setBackground(Color.black);
         this.setLayout(null);
+    }
+    
+    public void launchGame()
+    {
+        gameThread = new Thread(this);
+        gameThread.start();
+    }
+    
+    @Override
+    public void run()
+    {
+        //Game loop which is to contiuously update the game screen
+        //This is becasue multiple things are happening at once
+        double drawInterval = 1000000000/FPS;
+        double delta = 0;
+        long lastTime = System.nanoTime();
+        long currentTime;
         
+        while (gameThread != null)
+        {
+            currentTime = System.nanoTime();
+            
+            delta += (currentTime - lastTime) / drawInterval;
+            lastTime = currentTime;
+            
+            //This will occur 60 times per second which is the intended FPS
+            if (delta >=1)
+            {
+                //This continuously updates the game page
+                update();
+                repaint();
+                delta--;
+            }
+        }
+    }
+    
+    private void update()
+    {
         
+    }
+    
+    public void paintComponent(Graphics g)
+    {
+        super.paintComponent(g);
     }
 }
