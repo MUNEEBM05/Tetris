@@ -12,7 +12,7 @@ import javax.swing.JPanel;
 import java.awt.Rectangle;
 
 //In tetris a tetromino is composed of 4 blocks
-//This class is for representign a single block
+//This class is for representign a single block which is used for a mino
 public class Block extends Rectangle
 {
     public int x;
