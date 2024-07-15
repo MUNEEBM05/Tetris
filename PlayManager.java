@@ -27,6 +27,15 @@ public class PlayManager
     public static int top_y;
     public static int bottom_y;
     
+    //Mino
+    Mino currentMino;
+    final int MINO_START_X;
+    final int MINO_START_Y;
+    
+    //Dropping interval for Minos
+    public static int dropInterval = 60; //Mino drops every 60 frames
+    
+    
     public PlayManager()
     {
         //Frame buildup
@@ -34,11 +43,19 @@ public class PlayManager
         right_x = left_x + WIDTH; //820
         top_y = 50;
         bottom_y = top_y + HEIGHT; //650
+        
+        MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
+        MINO_START_Y = top_y + Block.SIZE;
+        
+        //Starting Mino
+        currentMino = new Mino_L1();
+        currentMino.setXY(MINO_START_X,MINO_START_Y);
+        
     }
     
     public void update()
     {
-        
+        currentMino.update();
     }
     
     public void draw(Graphics2D g2)
@@ -57,6 +74,12 @@ public class PlayManager
         g2.setFont(new Font("Ariel",Font.PLAIN,30));
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.drawString("NEXT",x+60,y+60);
+        
+        //Drawing the current Mino
+        if (currentMino != null)
+        {
+            currentMino.draw(g2);
+        }
         
     }
 }
