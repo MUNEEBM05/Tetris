@@ -24,9 +24,9 @@ public class Mino_L2 extends Mino
     
     public void setXY(int x, int y)
     {
-        /*     b[1]
-         *     b[0]
-         * b[3]b[2]
+        /*     o
+         *     o
+         *   o o
          */
         //Chose b[0] in centre as the shape can rotate and centre remains unchanged
         b[0].x = x;
