@@ -9,7 +9,7 @@ import javax.swing.JLabel;
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
+import java.util.Random;
 
 //The class that handles basic gameplay elements
 //Elements include: scoreboard, deleting bottom line, drawing play area, etc.
@@ -48,9 +48,50 @@ public class PlayManager
         MINO_START_Y = top_y + Block.SIZE;
         
         //Starting Mino
-        currentMino = new Mino_L1();
+        currentMino = pickMino();
         currentMino.setXY(MINO_START_X,MINO_START_Y);
         
+    }
+    
+    //Randomises what Mino to select in general
+    private Mino pickMino()
+    {
+       Mino mino = null; 
+        
+       int n = new Random().nextInt(7);
+       
+       switch(n)
+       {
+           case 0:
+           mino = new Mino_L1();
+           break;
+           
+           case 1:
+           mino = new Mino_L2();
+           break;
+           
+           case 2:
+           mino = new Mino_Square();
+           break;
+           
+           case 3:
+           mino = new Mino_Bar();
+           break;
+           
+           case 4:
+           mino = new Mino_T();
+           break;
+           
+           case 5:
+           mino = new Mino_Z1();
+           break;
+           
+           case 6:
+           mino = new Mino_Z2();
+           break;
+       }
+       
+       return mino;
     }
     
     public void update()
