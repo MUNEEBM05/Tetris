@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.target=Mino_Z1
+comment0.text=\ \ \ \ \ \ \ \ \ []\r\n\ \ \ \ \ \ \ [][]\r\n\ \ \ \ \ \ \ []\r\n
+comment1.params=
+comment1.target=Mino_Z1()
+comment2.params=x\ y
+comment2.target=void\ setXY(int,\ int)
+comment3.params=
+comment3.target=void\ getDirection1()
+comment4.params=
+comment4.target=void\ getDirection2()
+comment5.params=
+comment5.target=void\ getDirection3()
+comment6.params=
+comment6.target=void\ getDirection4()
+numComments=7
