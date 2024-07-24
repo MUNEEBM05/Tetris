@@ -73,6 +73,7 @@ public class Mino_Bar extends Mino
         tempB[3].y = b[0].y + Block.SIZE;
         updateXY(2);
     }
+    //Theres only 2 directions so it will be the same for 3 and 4
     public void getDirection3()
     {
         getDirection1();
