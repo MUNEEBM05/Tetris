@@ -21,6 +21,8 @@ public class Mino
     public int direction = 1; //There are 4 directions
     boolean leftCollision, rightCollision, bottomCollision; //To manage the mino movements
     public boolean active = true;
+    public boolean deactivating;
+    int deactivateCounter = 0;
     
     
     public void create(Color c)
@@ -173,6 +175,12 @@ public class Mino
     
     public void update()
     {
+        if (deactivating)
+        {
+            deactivating();
+        }
+        
+        
         if (KeyHandler.upPressed) //For rotating
         {
             switch(direction)
@@ -241,7 +249,8 @@ public class Mino
         
         if (bottomCollision)
         {
-            active = false;
+            deactivating = true;
+            
         }
         else
         {
@@ -259,6 +268,24 @@ public class Mino
         
         
     }
+    
+    public void deactivating()
+    {
+        deactivateCounter++;
+        
+        //Wait 45 seconds
+        if (deactivateCounter == 45)
+        {
+            deactivateCounter = 0;
+            checkMovementCollision();
+            
+            if (bottomCollision)
+            {
+                active = false;
+            }
+        }
+    }
+    
     
     public void draw(Graphics2D g2)
     {   
