@@ -20,6 +20,8 @@ public class Mino
     int autoDropCounter = 0;
     public int direction = 1; //There are 4 directions
     boolean leftCollision, rightCollision, bottomCollision; //To manage the mino movements
+    public boolean active = true;
+    
     
     public void create(Color c)
     {
@@ -197,16 +199,25 @@ public class Mino
             KeyHandler.rightPressed = false;            
         }
         
-        autoDropCounter ++; //Counter increases by 1 every frame
-        
-        if (autoDropCounter == PlayManager.dropInterval)
+        if (bottomCollision)
         {
-            b[0].y += Block.SIZE;
-            b[1].y += Block.SIZE;
-            b[2].y += Block.SIZE;
-            b[3].y += Block.SIZE;
-            autoDropCounter = 0;
+            active = false;
         }
+        else
+        {
+            autoDropCounter ++; //Counter increases by 1 every frame
+        
+            if (autoDropCounter == PlayManager.dropInterval)
+            {
+                b[0].y += Block.SIZE;
+                b[1].y += Block.SIZE;
+                b[2].y += Block.SIZE;
+                b[3].y += Block.SIZE;
+                autoDropCounter = 0;
+            }
+        }
+        
+        
     }
     
     public void draw(Graphics2D g2)
