@@ -10,6 +10,7 @@ import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.util.Random;
+import java.util.ArrayList;
 
 //The class that handles basic gameplay elements
 //Elements include: scoreboard, deleting bottom line, drawing play area, etc.
@@ -32,6 +33,11 @@ public class PlayManager
     final int MINO_START_X;
     final int MINO_START_Y;
     
+    Mino nextMino;
+    final int NEXTMINO_X;
+    final int NEXTMINO_Y;
+    public static ArrayList<Block> staticBlocks  = new ArrayList<>();
+    
     //Dropping interval for Minos
     public static int dropInterval = 60; //Mino drops every 60 frames
     
@@ -47,10 +53,16 @@ public class PlayManager
         MINO_START_X = left_x + (WIDTH/2) - Block.SIZE;
         MINO_START_Y = top_y + Block.SIZE;
         
+        NEXTMINO_X = right_x + 175;
+        NEXTMINO_Y = top_y + 500;
+        
         //Starting Mino
         currentMino = pickMino();
         currentMino.setXY(MINO_START_X,MINO_START_Y);
         
+        
+        nextMino = pickMino();
+        nextMino.setXY(NEXTMINO_X,NEXTMINO_Y);
     }
     
     //Randomises what Mino to select in general
@@ -96,7 +108,25 @@ public class PlayManager
     
     public void update()
     {
-        currentMino.update();
+        //Checking if current mino is active
+        if (currentMino.active == false)
+        {
+            //any non active minos are put on the ArrayList staticBlocks
+            staticBlocks.add(currentMino.b[0]);
+            staticBlocks.add(currentMino.b[1]);
+            staticBlocks.add(currentMino.b[2]);
+            staticBlocks.add(currentMino.b[3]);
+            
+            //replace current mino with next one
+            currentMino = nextMino;
+            currentMino.setXY(MINO_START_X, MINO_START_Y);
+            nextMino = pickMino();
+            nextMino.setXY(NEXTMINO_X,NEXTMINO_Y);
+        }
+        else
+        {
+            currentMino.update();
+        }
     }
     
     public void draw(Graphics2D g2)
@@ -121,6 +151,16 @@ public class PlayManager
         {
             currentMino.draw(g2);
         }
+        
+        //Drawing the next mino
+        nextMino.draw(g2);
+        
+        //Drawing the static blocks at the bottom of the area
+        for (int i=0; i<staticBlocks.size(); i++)
+        {
+            staticBlocks.get(i).draw(g2);
+        }
+        
         
         //Drawing pause button
         g2.setColor(Color.yellow);
