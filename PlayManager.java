@@ -124,10 +124,62 @@ public class PlayManager
             currentMino.setXY(MINO_START_X, MINO_START_Y);
             nextMino = pickMino();
             nextMino.setXY(NEXTMINO_X,NEXTMINO_Y);
+            
+            //Checks if mino line can be deleted
+            checkDelete();
         }
         else
         {
             currentMino.update();
+        }
+    }
+    
+    private void checkDelete()
+    {
+        int x = left_x;
+        int y = top_y;
+        int blockCount = 0;
+        
+        while (x<right_x && y<bottom_y)
+        {
+            for (int i=0; i<staticBlocks.size(); i++)
+            {
+                if (staticBlocks.get(i).x == x && staticBlocks.get(i).y == y)
+                {
+                    blockCount++;
+                }
+            }
+            
+            x+= Block.SIZE;
+            
+            if (x == right_x)
+            {
+                //If block hits 12 we can delete the line as row is filled
+                if (blockCount == 12)
+                {
+                    for (int i = staticBlocks.size()-1; i>-1; i--)
+                    {
+                        //remove all blocks in that row
+                        if (staticBlocks.get(i).y == y)
+                        {
+                            staticBlocks.remove(i);
+                        }
+                    }
+                    
+                    //Have to shift blocks down
+                    for (int i=0; i<staticBlocks.size(); i++)
+                    {
+                        if (staticBlocks.get(i).y < y)
+                        {
+                            staticBlocks.get(i).y += Block.SIZE;
+                        }
+                    }
+                }
+                
+                blockCount = 0;
+                x = left_x;
+                y+= Block.SIZE;
+            }
         }
     }
     
