@@ -41,6 +41,11 @@ public class PlayManager
     //Dropping interval for Minos
     public static int dropInterval = 60; //Mino drops every 60 frames
     
+    //Special effects like sound
+    boolean effectCounterOn;
+    int effectCounter;
+    ArrayList<Integer> effectY = new ArrayList<>();
+    
     
     public PlayManager()
     {
@@ -157,6 +162,9 @@ public class PlayManager
                 //If block hits 12 we can delete the line as row is filled
                 if (blockCount == 12)
                 {
+                    effectCounterOn = true;
+                    effectY.add(y);
+                    
                     for (int i = staticBlocks.size()-1; i>-1; i--)
                     {
                         //remove all blocks in that row
@@ -214,6 +222,26 @@ public class PlayManager
         {
             staticBlocks.get(i).draw(g2);
         }
+        
+        //Effects
+        if (effectCounterOn)
+        {
+            effectCounter++;
+            g2.setColor(Color.red);
+            for (int i=0; i<effectY.size(); i++)
+            {
+                g2.fillRect(left_x,effectY.get(i), WIDTH, Block.SIZE);
+            }
+            
+            if (effectCounter == 10)
+            {
+                effectCounterOn = false;
+                effectCounter = 0;
+                effectY.clear();
+            }
+        }
+        
+        
         
         
         //Drawing pause button
