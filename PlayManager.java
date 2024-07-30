@@ -40,11 +40,17 @@ public class PlayManager
     
     //Dropping interval for Minos
     public static int dropInterval = 60; //Mino drops every 60 frames
+    boolean gameOver;
     
     //Special effects like sound
     boolean effectCounterOn;
     int effectCounter;
     ArrayList<Integer> effectY = new ArrayList<>();
+    
+    //Score
+    int level = 1;
+    int lines;
+    int score;
     
     
     public PlayManager()
@@ -122,6 +128,12 @@ public class PlayManager
             staticBlocks.add(currentMino.b[2]);
             staticBlocks.add(currentMino.b[3]);
             
+            //Checking if game has ended
+            if (currentMino.b[0].x == MINO_START_X && currentMino.b[0].y == MINO_START_Y)
+            {
+                gameOver = true;
+            }
+            
             currentMino.deactivating = false;
             
             //replace current mino with next one
@@ -144,6 +156,8 @@ public class PlayManager
         int x = left_x;
         int y = top_y;
         int blockCount = 0;
+        int lineCount = 0;
+        
         
         while (x<right_x && y<bottom_y)
         {
@@ -174,6 +188,25 @@ public class PlayManager
                         }
                     }
                     
+                    lineCount++;
+                    lines++;
+                    
+                    //Once score reaches specified number level gets higher
+                    //Speeds increases
+                    if (lines % 10 == 0 && dropInterval >1)
+                    {
+                        level++;
+                        if (dropInterval >10)
+                        {
+                            dropInterval -= 10;
+                        }
+                        else
+                        {
+                            dropInterval -= 1;
+                        }
+                    }
+                    
+                    
                     //Have to shift blocks down
                     for (int i=0; i<staticBlocks.size(); i++)
                     {
@@ -188,6 +221,13 @@ public class PlayManager
                 x = left_x;
                 y+= Block.SIZE;
             }
+        }
+        
+        //Score counter
+        if (lineCount > 0)
+        {
+            int singleLineScore = 10 * level;
+            score += singleLineScore * lineCount;
         }
     }
     
@@ -207,6 +247,17 @@ public class PlayManager
         g2.setFont(new Font("Ariel",Font.PLAIN,30));
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
         g2.drawString("NEXT",x+60,y+60);
+        
+        //Scoreboard
+        g2.drawRect(x, top_y, 250, 300);
+        x += 40;
+        y = top_y + 90;
+        g2.drawString("LEVEL " + level + ":", x, y);
+        y += 70;
+        g2.drawString("LINES: " + lines, x, y);
+        y += 70;
+        g2.drawString("SCORE: " + score, x, y);
+        
         
         //Drawing the current Mino
         if (currentMino != null)
@@ -241,18 +292,28 @@ public class PlayManager
             }
         }
         
-        
-        
-        
-        //Drawing pause button
+        //Drawing pause button and Game Over button
         g2.setColor(Color.yellow);
         g2.setFont(g2.getFont().deriveFont(50f));
         
-        if(KeyHandler.pausePressed)
+        if(gameOver)
+        {
+            x = left_x + 25;
+            y = top_y + 320;
+            g2.drawString("GAME OVER", x, y);
+        }
+        else if(KeyHandler.pausePressed)
         {
             x = left_x + 70;
             y = top_y + 320;
             g2.drawString("PAUSED", x, y);
         }
+        
+        //Game Title
+        x = 55;
+        y = top_y + 320;
+        g2.setColor(Color.white);
+        g2.setFont(new Font("Times New Roman",Font.ITALIC, 60));
+        g2.drawString("Simple Tetris", x, y);
     }
 }
