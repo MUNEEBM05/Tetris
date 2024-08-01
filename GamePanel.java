@@ -1,11 +1,3 @@
-
-import java.util.HashMap;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
 import java.awt.*;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -23,6 +15,10 @@ public class GamePanel extends JPanel implements Runnable
     //To allow multitaksing along the game
     Thread gameThread;
     PlayManager pm;
+    
+    //For the music
+    public static Sound music = new Sound();
+    public static Sound se = new Sound();
     
     public GamePanel()
     {
@@ -43,6 +39,9 @@ public class GamePanel extends JPanel implements Runnable
     {
         gameThread = new Thread(this);
         gameThread.start();
+        
+        music.play(0, true);
+        music.loop();
     }
     
     @Override

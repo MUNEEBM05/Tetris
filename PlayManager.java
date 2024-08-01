@@ -1,14 +1,4 @@
-
-import java.util.HashMap;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.util.Random;
 import java.util.ArrayList;
 
@@ -132,6 +122,7 @@ public class PlayManager
             if (currentMino.b[0].x == MINO_START_X && currentMino.b[0].y == MINO_START_Y)
             {
                 gameOver = true;
+                GamePanel.music.stop();
             }
             
             currentMino.deactivating = false;
@@ -226,6 +217,7 @@ public class PlayManager
         //Score counter
         if (lineCount > 0)
         {
+            GamePanel.se.play(1, false);
             int singleLineScore = 10 * level;
             score += singleLineScore * lineCount;
         }

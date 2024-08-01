@@ -1,15 +1,4 @@
-
-import java.util.HashMap;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Rectangle;
 
 //In tetris a tetromino is composed of 4 blocks
 //This class is for representign a single block which is used for a mino

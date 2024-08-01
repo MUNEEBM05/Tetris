@@ -1,15 +1,4 @@
-import java.util.HashMap;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
 import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Rectangle;
-
 //All the differently shaped tetrominos will be extended from this class
 public class Mino
 {
@@ -202,6 +191,7 @@ public class Mino
                 break;
             }
             KeyHandler.upPressed = false;
+            GamePanel.se.play(3,false);
         }
         
         checkMovementCollision();
@@ -249,6 +239,10 @@ public class Mino
         
         if (bottomCollision)
         {
+            if (deactivating == false)
+            {
+                GamePanel.se.play(4,false);
+            }
             deactivating = true;
             
         }

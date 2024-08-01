@@ -1,14 +1,3 @@
-import java.util.HashMap;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JTextField;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
-import java.awt.*;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import java.awt.Rectangle;
 import java.awt.event.KeyListener;
 import java.awt.event.KeyEvent;
 
@@ -45,10 +34,13 @@ public class KeyHandler implements KeyListener
             if (pausePressed)
             {
                 pausePressed = false;
+                GamePanel.music.play(0, true);
+                GamePanel.music.loop();
             }
             else
             {
                 pausePressed = true;
+                GamePanel.music.stop();
             }
         }
         
