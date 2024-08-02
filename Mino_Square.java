@@ -10,7 +10,7 @@ public class Mino_Square extends Mino
 {
    public Mino_Square()
     {
-        create(Color.yellow);
+        create();
     }
     
     public void setXY(int x, int y)

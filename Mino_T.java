@@ -10,7 +10,7 @@ public class Mino_T extends Mino
 {
     public Mino_T()
     {
-        create(Color.magenta);
+        create();
     }
     
     public void setXY(int x, int y)

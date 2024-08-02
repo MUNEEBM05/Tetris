@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.Random;
 //All the differently shaped tetrominos will be extended from this class
 public class Mino
 {
@@ -13,9 +14,18 @@ public class Mino
     public boolean deactivating;
     int deactivateCounter = 0;
     
-    
-    public void create(Color c)
+    public Color ColorRandom()
     {
+        Color[] colors = {Color.cyan, Color.yellow, Color.magenta, Color.green, Color.red, Color.blue, Color.orange};
+        Random random = new Random();
+        
+        return colors[random.nextInt(colors.length)];
+    }
+    
+    
+    public void create()
+    {
+        Color c = ColorRandom();
         b[0] = new Block(c);
         b[1] = new Block(c);
         b[2] = new Block(c);

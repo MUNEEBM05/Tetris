@@ -1,3 +1,4 @@
+
 import java.awt.*;
 
 //The class for the shape: ([] means a block)
@@ -9,7 +10,7 @@ public class Mino_L1 extends Mino
 {
     public Mino_L1()
     {
-        create(Color.orange);
+        create();
     }
     
     public void setXY(int x, int y)

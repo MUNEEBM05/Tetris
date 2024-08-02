@@ -11,7 +11,7 @@ public class Mino_Bar extends Mino
 {
      public Mino_Bar()
     {
-        create(Color.cyan);
+        create();
     }
     
     public void setXY(int x, int y)

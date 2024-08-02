@@ -10,7 +10,7 @@ public class Mino_Z1 extends Mino
 {
     public Mino_Z1()
     {
-        create(Color.red);
+        create();
     }
     
     public void setXY(int x, int y)
