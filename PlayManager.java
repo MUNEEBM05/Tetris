@@ -1,7 +1,9 @@
 import java.awt.*;
 import java.util.Random;
 import java.util.ArrayList;
-
+import javax.swing.border.Border;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyledDocument;
 //The class that handles basic gameplay elements
 //Elements include: scoreboard, deleting bottom line, drawing play area, etc.
 public class PlayManager
@@ -225,8 +227,11 @@ public class PlayManager
     
     public void draw(Graphics2D g2)
     {
+        Random random = new Random();
+        Color[] colors = {Color.cyan, Color.yellow, Color.magenta, Color.green, Color.red, Color.blue, Color.orange};
+        
         //Play area frame buildup
-        g2.setColor(Color.white);
+        g2.setColor(Color.cyan);
         g2.setStroke(new BasicStroke(4f));
         
         //The alterations to dimensions are so theres a boundary 
@@ -235,19 +240,25 @@ public class PlayManager
         //A smaller box that gives a warning on the next block 
         int x = right_x + 100;
         int y = bottom_y - 200;
+        g2.setColor(Color.cyan);
         g2.drawRect(x,y,200,200);
         g2.setFont(new Font("Ariel",Font.PLAIN,30));
         g2.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2.setColor(colors[random.nextInt(colors.length)]);
         g2.drawString("NEXT",x+60,y+60);
         
         //Scoreboard
+        g2.setColor(Color.cyan);
         g2.drawRect(x, top_y, 250, 300);
         x += 40;
         y = top_y + 90;
+        g2.setColor(colors[random.nextInt(colors.length)]);
         g2.drawString("LEVEL " + level + ":", x, y);
         y += 70;
+        g2.setColor(colors[random.nextInt(colors.length)]);
         g2.drawString("LINES: " + lines, x, y);
         y += 70;
+        g2.setColor(colors[random.nextInt(colors.length)]);
         g2.drawString("SCORE: " + score, x, y);
         
         
@@ -270,7 +281,7 @@ public class PlayManager
         if (effectCounterOn)
         {
             effectCounter++;
-            g2.setColor(Color.red);
+            g2.setColor(colors[random.nextInt(colors.length)]);
             for (int i=0; i<effectY.size(); i++)
             {
                 g2.fillRect(left_x,effectY.get(i), WIDTH, Block.SIZE);
@@ -285,7 +296,8 @@ public class PlayManager
         }
         
         //Drawing pause button and Game Over button
-        g2.setColor(Color.yellow);
+        Color Gold = new Color(199, 153, 12);
+        g2.setColor(Gold);
         g2.setFont(g2.getFont().deriveFont(50f));
         
         if(gameOver)
@@ -304,8 +316,8 @@ public class PlayManager
         //Game Title
         x = 55;
         y = top_y + 320;
-        g2.setColor(Color.white);
-        g2.setFont(new Font("Times New Roman",Font.ITALIC, 60));
-        g2.drawString("Simple Tetris", x, y);
+        g2.setColor(colors[random.nextInt(colors.length)]);
+        g2.setFont(new Font("Verana",Font.ITALIC, 40));
+        g2.drawString("TETRIS PROJECT", x, y);
     }
 }
